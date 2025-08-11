@@ -189,6 +189,14 @@ if ( ! class_exists( 'ACF_Assets' ) ) :
 					'version'    => $version,
 					'in_footer'  => true,
 				),
+				'scf-bindings'            => array(
+					'handle'     => 'scf-bindings',
+					'src'        => acf_get_url( sprintf( $js_path_patterns['base'], 'scf-bindings' ) ),
+					'asset_file' => acf_get_path( sprintf( $asset_path_patterns['base'], 'scf-bindings' ) ),
+					'version'    => $version,
+					'deps'       => array(),
+					'in_footer'  => true,
+				),
 			);
 
 			// Define style registrations.
@@ -242,6 +250,28 @@ if ( ! class_exists( 'ACF_Assets' ) ) :
 					$script['in_footer']
 				);
 			}
+
+			wp_register_script(
+				'scf-commands-admin',
+				acf_get_url( 'assets/build/js/commands/scf-admin' . $suffix . '.js' ),
+				array( 'acf', 'wp-plugins', 'wp-element', 'wp-components', 'wp-data', 'wp-commands', 'wp-i18n', 'wp-dom-ready' ),
+				$version,
+				array(
+					'in_footer' => true,
+					'defer'     => true,
+				)
+			);
+
+			wp_register_script(
+				'scf-commands-custom-post-types',
+				acf_get_url( 'assets/build/js/commands/scf-custom-post-types' . $suffix . '.js' ),
+				array( 'acf', 'wp-plugins', 'wp-element', 'wp-components', 'wp-data', 'wp-commands', 'wp-i18n', 'wp-dom-ready' ),
+				$version,
+				array(
+					'in_footer' => true,
+					'defer'     => true,
+				)
+			);
 
 			// Register styles.
 			foreach ( $styles as $style ) {
@@ -507,6 +537,7 @@ if ( ! class_exists( 'ACF_Assets' ) ) :
 				// @todo integrate into the above. Previously, they were simply hooked into the hook below.
 				wp_enqueue_script( 'acf-pro-input' );
 				wp_enqueue_script( 'acf-pro-ui-options-page' );
+				wp_enqueue_script( 'scf-bindings' );
 				wp_enqueue_style( 'acf-pro-input' );
 
 				/**
