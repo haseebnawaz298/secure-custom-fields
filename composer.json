@@ -30,7 +30,8 @@
 		"psr-4": {
 			"ACF\\Blocks\\": "includes/Blocks/",
 			"SCF\\Forms\\": "includes/forms/",
-			"SCF\\Meta\\": "includes/Meta/"
+			"SCF\\Meta\\": "includes/Meta/",
+			"SCF\\Fields\\FlexibleContent\\": "includes/fields/FlexibleContent/"
 		}
 	},
 	"config": {
@@ -42,11 +43,16 @@
 		},
 		"platform": {
 			"php": "7.4"
-		}
+		},
+		"optimize-autoloader": true,
+		"classmap-authoritative": true
 	},
 	"scripts": {
 		"post-install-cmd": "WorDBless\\Composer\\InstallDropin::copy",
 		"post-update-cmd": "WorDBless\\Composer\\InstallDropin::copy",
+		"post-autoload-dump": [
+			"php bin/remove-installed-versions.php"
+		],
 		"docs": [
 			"@docs:parse",
 			"@docs:links",
